@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { fetchStreams } from '$lib/api/drips';
   import { fetchGithubUser, fetchGithubRepos } from '$lib/api/github';
   import Skeleton from '$lib/components/Skeleton.svelte';
@@ -15,6 +15,8 @@
   let loading = $state(true);
   let githubInput = $state('');
   let showGithubInput = $state(false);
+  let copyFeedback = $state<'idle' | 'copied'>('idle');
+  let copyResetTimer: ReturnType<typeof setTimeout> | null = null;
 
   onMount(async () => {
     if (!address) {
@@ -24,6 +26,10 @@
 
     streams = await fetchStreams(address);
     loading = false;
+  });
+
+  onDestroy(() => {
+    if (copyResetTimer) clearTimeout(copyResetTimer);
   });
 
   async function linkGithub() {
@@ -37,6 +43,33 @@
     repos = userRepos;
     showGithubInput = false;
     githubInput = '';
+  }
+
+  async function copyProfileLink() {
+    if (!address) return;
+
+    const profileUrl = `https://dripsflow.vercel.app/profile/${address}`;
+
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(profileUrl);
+    } else {
+      const textarea = document.createElement('textarea');
+      textarea.value = profileUrl;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      textarea.remove();
+    }
+
+    copyFeedback = 'copied';
+    if (copyResetTimer) clearTimeout(copyResetTimer);
+    copyResetTimer = setTimeout(() => {
+      copyFeedback = 'idle';
+      copyResetTimer = null;
+    }, 2000);
   }
 
   const incomingStreams = $derived(streams?.incomingStreams ?? []);
@@ -66,6 +99,9 @@
         + Link GitHub identity
       </button>
     {/if}
+    <button class="copy-profile-btn" onclick={copyProfileLink} aria-live="polite">
+      {copyFeedback === 'copied' ? 'Copied!' : 'Copy link'}
+    </button>
   </div>
 </div>
 
@@ -200,6 +236,24 @@
 
   .profile-bio { font-size: 0.875rem; color: #64748b; margin: 0; }
   .addr-mono { font-family: 'DM Mono', monospace; }
+
+  .copy-profile-btn {
+    background: rgba(125, 211, 252, 0.08);
+    border: 1px solid rgba(125, 211, 252, 0.22);
+    color: #7dd3fc;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-top: 0.65rem;
+  }
+
+  .copy-profile-btn:hover {
+    background: rgba(125, 211, 252, 0.14);
+    border-color: rgba(125, 211, 252, 0.4);
+  }
 
   .link-github-btn {
     background: none;

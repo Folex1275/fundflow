@@ -2,7 +2,7 @@
 
 > A contributor funding dashboard for Web3 open-source projects, built on the [Drips protocol](https://drips.network).
 
-🔴 **Live Demo:** https://fundflow.vercel.app
+🔴 **Live Demo:** https://fundflow-app.vercel.app
 
 ![FundFlow](https://img.shields.io/badge/built%20on-Drips-7dd3fc?style=flat-square)
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-TypeScript-orange?style=flat-square)

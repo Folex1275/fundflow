@@ -20,7 +20,7 @@
   <div class="nav-inner">
     <a href="/" class="logo">
       <span class="logo-icon">◈</span>
-      <span class="logo-text">DripsFlow</span>
+      <span class="logo-text">FundFlow</span>
     </a>
     <div class="nav-links">
       {#each links as link}

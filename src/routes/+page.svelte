@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>DripsFlow — Web3 Contributor Funding</title>
+  <title>FundFlow — Web3 Contributor Funding</title>
 </svelte:head>
 
 <section class="hero">
@@ -18,7 +18,7 @@
   <h1 class="hero-title">
     Track your<br/>
     <span class="accent">funding streams</span><br/>
-    on Drips
+    on FundFlow
   </h1>
   <p class="hero-sub">
     Connect your wallet to see your real-time funding streams, contribution history,

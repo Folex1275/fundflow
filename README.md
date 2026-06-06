@@ -1,16 +1,16 @@
-# DripsFlow
-
+# FundFlow
 
 > A contributor funding dashboard for Web3 open-source projects, built on the [Drips protocol](https://drips.network).
-🔴 **Live Demo:** https://dripsflow.vercel.app
 
-![DripsFlow](https://img.shields.io/badge/built%20on-Drips-7dd3fc?style=flat-square)
+🔴 **Live Demo:** https://fundflow.vercel.app
+
+![FundFlow](https://img.shields.io/badge/built%20on-Drips-7dd3fc?style=flat-square)
 ![SvelteKit](https://img.shields.io/badge/SvelteKit-TypeScript-orange?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 
 ## What it does
 
-DripsFlow lets open-source contributors connect their wallet and see:
+FundFlow lets open-source contributors connect their wallet and see:
 
 - **Live funding streams** — real-time DAI/ETH streams flowing to/from your address on Drips
 - **Contributor profile** — merge your GitHub identity with your on-chain wallet into a single view
@@ -30,8 +30,8 @@ DripsFlow lets open-source contributors connect their wallet and see:
 ## Getting started
 
 ```bash
-git clone https://github.com/Ugasutun/dripsflow.git
-cd dripsflow
+git clone https://github.com/Ugasutun/fundflow.git
+cd fundflow
 npm install
 npm run dev
 ```
@@ -39,40 +39,3 @@ npm run dev
 Open http://localhost:5173 in your browser. You need a browser wallet (MetaMask, Rabby).
 
 ## Project structure
-
-```
-src/
-├── lib/
-│   ├── api/
-│   │   ├── drips.ts        # Drips GraphQL queries
-│   │   └── github.ts       # GitHub REST API client
-│   ├── components/
-│   │   ├── Navbar.svelte
-│   │   ├── StreamCard.svelte
-│   │   └── ProjectCard.svelte
-│   └── stores/
-│       └── wallet.ts       # Wallet connection state
-└── routes/
-    ├── +page.svelte
-    ├── explore/+page.svelte
-    └── profile/[address]/+page.svelte
-```
-
-## Deploying
-
-```bash
-npm install -g vercel
-vercel
-```
-
-## Roadmap
-
-- [ ] ENS reverse lookup on profile pages
-- [ ] Token price conversion (DAI → USD)
-- [ ] Contribution history linked to GitHub issues
-- [ ] Drips splits visualizer
-- [ ] WalletConnect v2 support
-
-## License
-
-MIT
